@@ -1,0 +1,20 @@
+{
+  "name": "voixt",
+  "version": "1.0.0",
+  "description": "Voixt - Intelligent Voice-to-Text with Speech-Aware Chunking (Gold & Black Theme, English & Arabic)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "voice-to-text",
+    "speech-to-text",
+    "audio-transcription",
+    "gemini-ai",
+    "netlify"
+  ],
+  "author": "",
+  "license": "MIT"
+}
+

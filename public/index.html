@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Primary Meta Tags -->
+  <title data-i18n="siteTitle">Voixt — Intelligent Voice to Text</title>
+  <meta name="title" content="Voixt — Intelligent Voice to Text">
+  <meta name="description" content="Convert spoken voice into crystal-clear text directly in your browser. Features intelligent silence-based audio chunking that preserves word boundaries, powered by Gemini AI with full English and Arabic support.">
+  <meta name="keywords" content="voice to text, speech to text, audio transcription, arabic speech to text, gemini ai, audio chunker, voixt, browser recorder">
+  <meta name="author" content="Voixt">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0c">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://voixt.netlify.app/">
+  <meta property="og:title" content="Voixt — Intelligent Voice to Text Studio">
+  <meta property="og:description" content="AI-powered browser voice recording with intelligent silence-based audio chunking. Supports English and Arabic without clipping words.">
+  <meta property="og:image" content="/favicon.svg">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://voixt.netlify.app/">
+  <meta property="twitter:title" content="Voixt — Intelligent Voice to Text Studio">
+  <meta property="twitter:description" content="AI-powered browser voice recording with intelligent silence-based audio chunking. Supports English and Arabic without clipping words.">
+  <meta property="twitter:image" content="/favicon.svg">
+
+  <!-- Favicon (Stylized Gold V) -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="alternate icon" href="favicon.svg">
+
+  <!-- Google Fonts: Inter for Latin & Cairo for Arabic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Background decorative glows -->
+  <div class="ambient-glow glow-top"></div>
+  <div class="ambient-glow glow-bottom"></div>
+
+  <!-- Header & Navigation -->
+  <header class="app-header">
+    <div class="container header-container">
+      <a href="#" class="brand-logo">
+        <div class="logo-mark">
+          <svg viewBox="0 0 64 64" width="32" height="32">
+            <path d="M16 17 L25.5 17 L32 38.5 L38.5 17 L48 17 L35.5 47 L28.5 47 Z" fill="url(#headerGold)" />
+            <defs>
+              <linearGradient id="headerGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#FFF2B2"/>
+                <stop offset="50%" stop-color="#E5C158"/>
+                <stop offset="100%" stop-color="#AA7C11"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name" data-i18n="brandName">Voixt</span>
+          <span class="brand-tagline" data-i18n="brandTagline">Speech to Text Studio</span>
+        </div>
+      </a>
+
+      <!-- Language Selector -->
+      <div class="lang-selector">
+        <button type="button" class="lang-btn active" id="langEnBtn" data-lang="en">
+          <span>EN</span>
+        </button>
+        <div class="lang-divider"></div>
+        <button type="button" class="lang-btn" id="langArBtn" data-lang="ar">
+          <span>عربي</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero / Introductory Section -->
+  <section class="intro-section">
+    <div class="container intro-container">
+      <div class="intro-badge">
+        <span class="badge-dot"></span>
+        <span data-i18n="introBadge">AI-Powered Audio Transcription</span>
+      </div>
+
+      <h1 class="intro-title" data-i18n="introTitle">
+        Transform Spoken Voice into Flawless Text
+      </h1>
+
+      <p class="intro-desc" data-i18n="introDesc">
+        Voixt records your voice directly in the browser and intelligently slices lengthy recordings at natural pauses without cutting words. Powered by advanced Gemini AI for unmatched accuracy in English and Arabic.
+      </p>
+
+      <div class="intro-cta-group">
+        <button type="button" class="btn btn-primary" id="btnStartRecording">
+          <svg class="icon" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+            <path fill="currentColor" d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+          </svg>
+          <span data-i18n="introActionRecord">Start Recording</span>
+        </button>
+
+        <button type="button" class="btn btn-secondary" id="btnUploadAudio">
+          <svg class="icon" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
+          </svg>
+          <span data-i18n="introActionUpload">Upload Audio File</span>
+        </button>
+      </div>
+
+      <!-- Feature Highlight Badges -->
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M14 6l-3.75 5 2.85 3.8-1.6 1.2L7 10l-6 8h22L14 6zM5 14l2-2.67 1.5 2L5 14z"/></svg>
+          </div>
+          <div class="feature-content">
+            <h3 data-i18n="feat1Title">Natural Word Boundary Chunking</h3>
+            <p data-i18n="feat1Desc">Analyzes audio energy pauses to prevent splitting words mid-syllable.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12.87 15.07l-2.54-2.51.03-.08c1.74-1.94 2.98-4.17 3.71-6.49H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+          </div>
+          <div class="feature-content">
+            <h3 data-i18n="feat2Title">Bilingual Mastery</h3>
+            <p data-i18n="feat2Desc">Native comprehension of Arabic (MSA & dialects) and English.</p>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path fill="currentColor" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          </div>
+          <div class="feature-content">
+            <h3 data-i18n="feat3Title">Server-Side Privacy</h3>
+            <p data-i18n="feat3Desc">API keys remain secured in serverless functions, never in client browsers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Studio Recording Console Section -->
+  <section class="studio-section" id="studioSection">
+    <div class="container studio-container">
+      
+      <!-- Studio Card -->
+      <div class="studio-card">
+        
+        <!-- Header & Status -->
+        <div class="studio-header">
+          <div>
+            <h2 class="studio-title" data-i18n="studioTitle">Voice Recording Console</h2>
+            <p class="studio-subtitle" data-i18n="studioSubtitle">Speak naturally. Long recordings will be sliced cleanly at pauses.</p>
+          </div>
+
+          <div class="status-pill status-ready" id="statusPill">
+            <span class="status-indicator"></span>
+            <span id="statusText" data-i18n="statusReady">Ready to record</span>
+          </div>
+        </div>
+
+        <!-- Visualizer Area -->
+        <div class="visualizer-wrapper">
+          <canvas id="visualizerCanvas" width="700" height="120"></canvas>
+          <div class="timer-display" id="timerDisplay">00:00</div>
+        </div>
+
+        <!-- Controls Bar -->
+        <div class="controls-toolbar">
+          <button type="button" class="btn btn-record" id="btnRecord">
+            <span class="rec-icon"></span>
+            <span data-i18n="btnRecord">Record</span>
+          </button>
+
+          <button type="button" class="btn btn-control" id="btnPause" disabled>
+            <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M14 19h4V5h-4v14zm-8 0h4V5H6v14z"/></svg>
+            <span data-i18n="btnPause">Pause</span>
+          </button>
+
+          <button type="button" class="btn btn-control btn-gold-outline" id="btnStop" disabled>
+            <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M6 6h12v12H6z"/></svg>
+            <span data-i18n="btnStop">Stop & Transcribe</span>
+          </button>
+
+          <button type="button" class="btn btn-control btn-ghost" id="btnCancel" disabled>
+            <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            <span data-i18n="btnCancel">Cancel</span>
+          </button>
+        </div>
+
+        <!-- Settings Drawer -->
+        <div class="settings-drawer">
+          <div class="settings-group">
+            <label for="targetLanguageSelect" class="settings-label" data-i18n="targetLanguageLabel">Target Language:</label>
+            <div class="select-wrapper">
+              <select id="targetLanguageSelect" class="custom-select">
+                <option value="auto" data-i18n="langAuto">Auto-Detect (Original Spoken)</option>
+                <option value="en" data-i18n="langEn">English (Transcribe / Translate)</option>
+                <option value="ar" data-i18n="langAr">Arabic (العربية - فصحى ولغات)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <div class="slider-header">
+              <label for="chunkSizeInput" class="settings-label" data-i18n="chunkSizeLabel">Target Chunk Length:</label>
+              <span class="chunk-val-display" id="chunkSizeDisplay">35s</span>
+            </div>
+            <input type="range" id="chunkSizeInput" min="20" max="60" step="5" value="35" class="custom-slider">
+          </div>
+        </div>
+
+        <!-- File Upload Area -->
+        <div class="file-drop-zone" id="fileDropZone">
+          <input type="file" id="audioFileInput" accept="audio/*,.mp3,.wav,.m4a,.aac,.ogg,.webm,.flac" hidden>
+          <svg class="drop-icon" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+          </svg>
+          <p class="drop-text" data-i18n="uploadPrompt">Or drop an audio file here (.mp3, .wav, .m4a, .webm)</p>
+          <button type="button" class="btn btn-secondary btn-sm" id="btnBrowseFile" data-i18n="uploadBrowse">Browse Files</button>
+        </div>
+
+        <!-- Processing Progress Bar -->
+        <div class="progress-container hidden" id="progressContainer">
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="progressBar"></div>
+          </div>
+          <span class="progress-label" id="progressLabel">0%</span>
+        </div>
+
+      </div>
+
+      <!-- Output Section -->
+      <div class="output-card">
+        <div class="output-header">
+          <div class="output-title-wrap">
+            <svg class="gold-sparkle" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 2L9.5 8.5 3 11l6.5 2.5L12 20l2.5-6.5L21 11l-6.5-2.5L12 2z"/>
+            </svg>
+            <h3 class="output-title" data-i18n="outputTitle">Transcribed Text</h3>
+          </div>
+
+          <div class="output-stats">
+            <span class="stat-item"><strong id="statWords">0</strong> <span data-i18n="wordsCount">Words</span></span>
+            <span class="stat-divider">•</span>
+            <span class="stat-item"><strong id="statChars">0</strong> <span data-i18n="charsCount">Characters</span></span>
+            <span class="stat-divider">•</span>
+            <span class="stat-item"><strong id="statChunks">0</strong> <span data-i18n="chunksCount">Chunks</span></span>
+          </div>
+        </div>
+
+        <div class="output-body">
+          <textarea id="outputTextarea" class="output-textarea" placeholder="Your transcribed text will appear here with natural punctuation and paragraph formatting..." data-i18n-placeholder="outputPlaceholder" rows="10"></textarea>
+        </div>
+
+        <div class="output-actions">
+          <div class="actions-left">
+            <button type="button" class="btn btn-primary btn-sm" id="btnCopy">
+              <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+              <span data-i18n="btnCopy">Copy Text</span>
+            </button>
+
+            <button type="button" class="btn btn-secondary btn-sm" id="btnDownload">
+              <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              <span data-i18n="btnDownload">Download .TXT</span>
+            </button>
+          </div>
+
+          <button type="button" class="btn btn-ghost btn-sm" id="btnClear">
+            <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            <span data-i18n="btnClear">Clear</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="toast-notification"></div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="container footer-container">
+      <div class="footer-left">
+        <span class="footer-logo">Voixt</span>
+        <span class="footer-copy">© 2026 Voixt Studio. Secure Audio Transcription.</span>
+      </div>
+      <div class="footer-right">
+        <span class="footer-badge">Deployed on Netlify • API Safe</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/audio-chunker.js"></script>
+  <script src="js/audio-recorder.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,19 @@
+# Environment variables (MUST stay private)
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Netlify local files
+.netlify/
+
+# OS and Editor files
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+

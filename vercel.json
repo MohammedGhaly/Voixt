@@ -1,0 +1,14 @@
+{
+  "outputDirectory": "public",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/api/:match*",
+      "destination": "/api/:match*"
+    },
+    {
+      "source": "/((?!api|css|js|favicon.svg).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -60,3 +60,4 @@ Vercel will detect the configuration automatically from `vercel.json`:
 3. Click **Record**, speak a short sentence, and click **Stop & Transcribe**.
 4. You will see a `POST` request to `https://your-app.vercel.app/api/transcribe`.
 5. Check the request payload and headers: **Your Gemini API key is completely hidden** and handled on the server!
+

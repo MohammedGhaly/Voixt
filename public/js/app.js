@@ -255,31 +255,30 @@ document.addEventListener('DOMContentLoaded', () => {
         showToast(window.i18n.t('singleChunkNotification'), 'info');
       }
 
-      // Step 2: Transcribe each chunk sequentially via serverless endpoint
+      // Step 2: Transcribe chunks in parallel via serverless endpoint for maximum speed
       const targetLang = targetLanguageSelect.value;
-      const transcriptionParts = [];
+      let completedCount = 0;
 
-      for (let i = 0; i < totalChunks; i++) {
-        const chunk = chunks[i];
-        const currentNum = i + 1;
-        const percent = 30 + Math.floor(((i + 1) / totalChunks) * 65);
+      setStatusText(window.i18n.t('statusTranscribing', { current: 1, total: totalChunks }), 'processing');
 
-        setStatusText(window.i18n.t('statusTranscribing', { current: currentNum, total: totalChunks }), 'processing');
-        showProgress(percent, window.i18n.t('statusTranscribing', { current: currentNum, total: totalChunks }));
-
+      const transcriptionPromises = chunks.map(async (chunk, index) => {
         const result = await apiClient.transcribeChunk(chunk.blob, {
           language: targetLang,
           mode: 'transcribe'
         });
+        completedCount++;
+        const percent = 30 + Math.floor((completedCount / totalChunks) * 65);
+        showProgress(percent, window.i18n.t('statusTranscribing', { current: completedCount, total: totalChunks }));
+        return { index, text: (result.text || '').trim() };
+      });
 
-        if (result.text) {
-          transcriptionParts.push(result.text.trim());
-          // Live append to textarea
-          const combinedLive = transcriptionParts.join('\n\n');
-          outputTextarea.value = combinedLive;
-          updateStats(combinedLive, currentNum);
-        }
-      }
+      const results = await Promise.all(transcriptionPromises);
+      
+      // Sort by original index to ensure proper chronological order
+      results.sort((a, b) => a.index - b.index);
+      const combinedText = results.map(r => r.text).filter(Boolean).join('\n\n');
+      outputTextarea.value = combinedText;
+      updateStats(combinedText, totalChunks);
 
       showProgress(100, window.i18n.t('statusDone'));
       setStatus('statusDone', 'done');

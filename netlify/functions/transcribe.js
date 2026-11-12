@@ -30,9 +30,10 @@ if (!process.env.API_KEY && !process.env.GEMINI_API_KEY) {
 }
 
 const CANDIDATE_MODELS = [
+  'gemini-flash-lite-latest',
+  'gemini-3.5-flash-lite',
   'gemini-3.5-flash',
-  'gemini-3.8-flash',
-  'gemini-flash-latest'
+  'gemini-3.8-flash'
 ];
 
 function buildPrompt(language = 'auto', mode = 'transcribe') {
@@ -160,7 +161,8 @@ exports.handler = async (event, context) => {
         const response = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(requestBody)
+          body: JSON.stringify(requestBody),
+          signal: AbortSignal.timeout(6500) // Fast 6.5s failover if model stalls
         });
 
         if (response.status === 200) {
